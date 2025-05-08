@@ -1,0 +1,35 @@
+{
+  "name": "reserva-citas-app2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index.js",
+    "dev" : "nodemon index.js",
+    "prisma" : "prisma",
+    "migrate" : "prisma migrate dev dev --name init",
+    "generate" : "prisma generate",
+    "test" : "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raf4el12/reserva-citas-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raf4el12/reserva-citas-app/issues"
+  },
+  "homepage": "https://github.com/raf4el12/reserva-citas-app#readme",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prisma": "^6.7.0"
+  }
+}

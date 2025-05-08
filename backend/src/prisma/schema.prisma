@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")  // env
+}
+
+model Usuario {
+  id            Int       @id @default(autoincrement())
+  nombre        String
+  apellido      String
+  email         String    @unique
+  password      String
+  estado        Boolean   @default(true)
+  creadoEn      DateTime  @default(now())
+  actualizadoEn DateTime?
+  perfil        Perfil?
+  roles         Usuarios_Roles[]
+
+  @@map("Usuarios")
+}
+
+model Perfil {
+  id                Int       @id @default(autoincrement())
+  direccion         String?
+  telefono          String?
+  tipoDocumento_id  Int?
+  numeroDocumento   String?
+  fechaNacimiento   DateTime?
+  fotoPerfil        String?
+  creadoEn          DateTime @default(now())
+  actualizadoEn     DateTime?
+
+  usuario_id        Int      @unique
+  usuario           Usuario  @relation(fields: [usuario_id], references: [id])
+  tipoDocumento     TipoDocumento? @relation(fields: [tipoDocumento_id], references: [id])
+
+  @@map("Perfiles")
+}
+
+model Usuarios_Roles {
+  usuario_id Int
+  rol_id     Int
+
+  usuario    Usuario @relation(fields: [usuario_id], references: [id])
+  rol        Rol     @relation(fields: [rol_id], references: [id])
+
+  @@id([usuario_id, rol_id])
+  @@map("Usuarios_Roles")
+}
+
+model Rol {
+  id          Int              @id @default(autoincrement())
+  name        String
+  descripcion String?
+
+  usuarios    Usuarios_Roles[]
+
+  @@map("Roles")
+}
+
+model TipoDocumento {
+  id          Int       @id @default(autoincrement())
+  name        String
+  descripcion String?
+  longitud    Int?
+
+  usuarios    Perfil[]
+  pacientes   Paciente[]
+
+  @@map("TipoDocumento")
+}
+
+model Paciente {
+  id                Int         @id @default(autoincrement())
+  nombre            String
+  apellido          String
+  tipoDocumento_id  Int
+  numeroDocumento   String      @unique
+  direccion         String?
+  telefono          String?
+  email             String?
+  fechaNacimiento   DateTime?
+  genero            String?
+  alergias          String?
+  enfermedadesPre   String?
+  observaciones     String?
+  creadoEn          DateTime    @default(now())
+  actualizadoEn     DateTime?
+
+  tipoDocumento     TipoDocumento @relation(fields: [tipoDocumento_id], references: [id])
+  citas             Cita[]
+
+  @@map("Pacientes")
+}
+
+model Doctores {
+  id              Int       @id @default(autoincrement())
+  nombre          String
+  apellido        String
+  numeroColegiado String    @unique
+  estado          Boolean   @default(true)
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime?
+
+  especialidades  Especialidad[]
+  horarios        Schedule[]
+  citas           Cita[]
+  scheduleHistorico ScheduleHistorico[]
+
+  @@map("Doctores")
+}
+
+model Especialidad {
+  id              Int       @id @default(autoincrement())
+  name            String
+  descripcion     String?
+  estado          Boolean   @default(true)
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime?
+
+  doctores        Doctores[] 
+  citas           Cita[]
+
+  @@map("Especialidades")
+}
+
+model Schedule {
+  id            Int       @id @default(autoincrement())
+  doctor_id     Int
+  dayOfWeek     String
+  timeFrom      DateTime
+  timeTo        DateTime
+  creadoEn      DateTime  @default(now())
+  actualizadoEn DateTime?
+
+  doctor        Doctores  @relation(fields: [doctor_id], references: [id])
+
+  @@map("Schedules")
+}
+
+model Cita {
+  id              Int       @id @default(autoincrement())
+  paciente_id     Int
+  doctor_id       Int
+  especialidad_id Int?
+  categoria_id    Int?
+  appointmentDate DateTime
+  appointmentTime DateTime
+  duration        Int
+  location        String?
+  estado          String
+  notas           String?
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime?
+
+  paciente        Paciente   @relation(fields: [paciente_id], references: [id])
+  doctor          Doctores   @relation(fields: [doctor_id], references: [id])
+  especialidad    Especialidad? @relation(fields: [especialidad_id], references: [id])
+  categoria       Categoria?  @relation(fields: [categoria_id], references: [id])
+
+  @@map("Citas")
+}
+
+model Categoria {
+  id          Int       @id @default(autoincrement())
+  name        String
+  descripcion String?
+
+  citas       Cita[]
+
+  @@map("Categorias")
+}
+
+model ScheduleHistorico {
+  id            Int       @id @default(autoincrement())
+  schedule_id   Int
+  doctor_id     Int
+  dayOfWeek     String
+  timeFrom      DateTime
+  timeTo        DateTime
+  operacion     String
+  fechaOperacion DateTime @default(now())
+  usuarioOperacion String?
+
+  doctor        Doctores  @relation(fields: [doctor_id], references: [id])
+
+  @@map("Schedules_Historico")
+}
