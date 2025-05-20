@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start" : "node index.js",
-    "dev" : "nodemon index.js",
-    "prisma" : "prisma",
-    "migrate" : "prisma migrate dev dev --name init",
-    "generate" : "prisma generate",
-    "test" : "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "prisma": "prisma --schema=backend/prisma/schema.prisma",
+    "migrate": "prisma migrate dev --name init --schema=backend/prisma/schema.prisma",
+    "generate": "prisma generate --schema=backend/prisma/schema.prisma",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pull": "prisma db pull --schema=backend/prisma/schema.prisma"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,8 @@
     "@prisma/client": "^6.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mssql": "^11.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
