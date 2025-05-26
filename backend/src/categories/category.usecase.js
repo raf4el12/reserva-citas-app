@@ -1,8 +1,10 @@
-import prisma from "../../prisma/context";
+import prisma from "../../prisma/context.js";
+
 
 // filtrar cat con delet true, solo las categorias que han sido eliminadas (ejem)
 const getCategories = async () => {
   try {
+    
     const categories = await prisma.categories.findMany({ // findMany es para obtener varios registros ejem: usuario, categorias, etc
         where: {
             deleted: false, // traer categorias que no esten eliminadas
@@ -18,8 +20,16 @@ const getCategories = async () => {
 const getCategoryById = async (id) => {
   try {
     const category = await prisma.categories.findUnique({
+      // include: {
+      //   specialties: {
+      //     select: {
+      //       id: true,
+      //       name: true
+      //     }
+      //   }
+      // },
       where: {
-        id: id,
+        id: parseInt(id), // convertir el id a entero
       },
     });
     return category;
@@ -33,7 +43,7 @@ const updateCategoryById = async (id, data) => {
   try {
     const category = await prisma.categories.update({
       where: {
-        id: id,
+        id: parseInt(id), // convertir el id a entero
       },
       data: data,
     });
@@ -43,8 +53,9 @@ const updateCategoryById = async (id, data) => {
   }
 }
 
-const getCreatedCategory = async (data) => {
+const createdCategory = async (data) => {
   try {
+    
     const category = await prisma.categories.create({
       data: data,
     });
@@ -59,7 +70,7 @@ const deleteCategoryById = async (id) => {
   try {
     const category = await prisma.categories.update({
       where: {
-        id: id,
+        id: parseInt(id), // convertir el id a entero
       },
       data: {
         deleted: true,
@@ -70,4 +81,12 @@ const deleteCategoryById = async (id) => {
     throw new Error("Error deleting category: " + error.message);
   }
 }
+
+export {
+  getCategories,
+  getCategoryById,
+  updateCategoryById,
+  createdCategory,
+  deleteCategoryById,
+};   
 

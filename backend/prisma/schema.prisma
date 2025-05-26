@@ -78,11 +78,10 @@ model Specialties {
   id         Int       @id @default(autoincrement())
   categoryId Int
   name       String
-  category   String
   deleted    Boolean   @default(false)
   createdAt  DateTime  @default(now())
   updatedAt  DateTime?
-  categoryFk Categories @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category Categories @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   doctorLinks DoctorsSpecialties[]
   availability Availability[]
   schedules    Schedules[]

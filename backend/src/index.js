@@ -1,11 +1,11 @@
-const express = require('express');
+import express from 'express';
+import router from './router.js'; // importas el router principal que junta todas las rutas
 const app = express();
-require('dotenv').config();
 
 app.use(express.json());
 
-const router = require('./router');
-app.use('/api', router);
+app.use('/api', router); // prefijo general para todas las rutas
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${3000}`));
+app.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});

@@ -1,10 +1,11 @@
 {
   "name": "reserva-citas-app2",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node ./backend/src/index.js",
+    "dev": "nodemon ./backend/src/index.js",
     "prisma": "prisma --schema=backend/prisma/schema.prisma",
     "migrate": "prisma migrate dev --name init --schema=backend/prisma/schema.prisma",
     "generate": "prisma generate --schema=backend/prisma/schema.prisma",

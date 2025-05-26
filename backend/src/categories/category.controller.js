@@ -25,7 +25,7 @@ const getCategoryById = async (req, res) => {
 const createdCategory = async (req, res) => {
   const { name, description } = req.body;
   try {
-    const category = await categoryUsecase.getCreatedCategory({ name, description });
+    const category = await categoryUsecase.createdCategory({ name, description });
     res.status(201).json(category);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -57,4 +57,11 @@ const deleteCategory = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+}
+export {
+getCategories,
+getCategoryById,
+createdCategory,
+updateCategory,
+deleteCategory
 }
