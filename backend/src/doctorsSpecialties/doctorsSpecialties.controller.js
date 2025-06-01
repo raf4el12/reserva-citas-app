@@ -24,6 +24,10 @@ const getDoctorsSpecialtyById = async (req, res) => {
 
 const createDoctorsSpecialty = async (req, res) => {
   const { doctorId, specialtyId } = req.body;
+
+  if (!doctorId || !specialtyId) {
+    return res.status(400).json({ message: "Doctor ID and Specialty ID are required" });
+  }
   try {
     const doctorsSpecialty = await doctorsSpecialtiesUseCase.createDoctorsSpecialty({ doctorId, specialtyId });
     res.status(201).json(doctorsSpecialty);

@@ -34,7 +34,7 @@ const createdUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password } = req.body;
+  const { name, email, password,role } = req.body;
   try {
     const user = await userUseCase.updateUserById(id, { name, email, password,role });
     if (!user) {

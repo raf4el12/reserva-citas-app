@@ -23,10 +23,10 @@ const getProfilesById = async (req, res) => {
 }
 
 const createdProfiles = async (req, res) => {
-  const { name, lastname, email, userId } = req.body;
+  const { name, lastName, email, birthday, gender, national, photo, phone, address, typeProfileId, typeDocument, numberDocument, userId } = req.body;
 
   try {
-    const profile = await profilesUseCase.createdProfiles({ name, lastname, email, userId });
+    const profile = await profilesUseCase.createdProfiles({ name, lastName, email, birthday, gender, national, photo, phone,address, typeProfileId, typeDocument,numberDocument, userId });
     res.status(201).json(profile);
   } catch (error) {
     res.status(500).json({ message: error.message });

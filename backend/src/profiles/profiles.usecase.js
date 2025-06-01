@@ -57,7 +57,7 @@ const updateProfilesById = async (id, data) => {
     }
 }
 
-const createdProfiles = async ({ name, lastname, email, userId }) => {
+const createdProfiles = async ({ name, lastName, email, birthday, gender, national, photo, phone, address, typeProfileId, typeDocument, numberDocument, userId }) => {
   // Validar que el usuario exista
   const user = await prisma.users.findUnique({
     where: { id: userId }
@@ -80,9 +80,18 @@ const createdProfiles = async ({ name, lastname, email, userId }) => {
   const profile = await prisma.profiles.create({
     data: {
       name,
-      lastName: lastname,
+      lastName,
       email,
-      userId
+      birthday,
+      gender,
+      national,
+      photo,
+      phone,
+      address,
+      typeProfileId,
+      typeDocument,
+      numberDocument,
+      userId,        
     }
   });
 

@@ -10,13 +10,19 @@ const getDoctors = async () => {
         profile: {
           select: {
             id: true,
-            
+            name: true,
+            lastName: true,
           },
         },
         specialties: {
           select: {
             id: true,
-            name: true,
+            specialty: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
       },
@@ -37,13 +43,19 @@ const getDoctorById = async (id) => {
         profile: {
           select: {
             id: true,
-            
+            name: true,
+            lastName: true,
           },
         },
         specialties: {
           select: {
             id: true,
-            name: true,
+            specialty: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
           },
         },
       },
