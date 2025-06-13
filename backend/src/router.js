@@ -10,6 +10,8 @@ import availabilityRoutes from './availability/availability.routes.js'; // Assum
 import schedulesRoutes from './schedules/schedules.routes.js'; // Assuming you have a similar route for schedules
 import appointmentsRoutes from './appointments/appointments.routes.js'; // Assuming you have a similar route for appointments
 import clinicalNotesRoutes from './clinicalnotes/clinicalnotes.routes.js'; // Assuming you have a similar route for clinical notes
+import authRoutes from './auth/auth.routes.js'; // Assuming you have a similar route for authentication
+
 
 const router = express.Router();
 
@@ -24,4 +26,5 @@ router.use('/availability', availabilityRoutes); // Assuming you have a similar 
 router.use('/schedules', schedulesRoutes); // Assuming you have a similar route for schedules
 router.use('/appointments', appointmentsRoutes); // Assuming you have a similar route for appointments
 router.use('/clinical-notes', clinicalNotesRoutes); // Assuming you have a similar route for clinical notes
+router.use('/auth', authRoutes);
 export default router;

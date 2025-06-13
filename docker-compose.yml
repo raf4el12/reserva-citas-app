@@ -1,0 +1,15 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Passw0rd
+      MSSQL_PID: "Developer"
+      MSSQL_ENCRYPT: "false"
+      TRUST_SERVER_CERTIFICATE: "true" 
+    ports:
+      - "1450:1433"
+    volumes:
+      - ./data/sqlserver:/var/opt/mssql/data
