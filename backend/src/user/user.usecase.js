@@ -1,4 +1,7 @@
+import bcrypt from "bcrypt";
 import prisma from "../../prisma/context.js";
+
+const saltRounds = 10;
 
 const getUser = async () => {
     try {
@@ -43,13 +46,15 @@ const updateUserById = async (id, data) => {
 
 const createdUser = async (data) => {
     try {
-        const {name, email, password,role} = data;
+        const { name, email, password, role } = data;
+
+        const passwordHash = await bcrypt.hash(password, saltRounds)
 
         const user = await prisma.users.create({
             data: {
                 name: name,
                 email: email,
-                password: password,
+                password: passwordHash,
                 role: role,
             }
         });

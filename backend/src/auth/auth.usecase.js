@@ -31,10 +31,11 @@ const login = async (email, password) => {
         },
         SECRET_KEY, 
         {
-            expiresIn: '10m', // ponemos 10 minutos de expiración
+            expiresIn: '10m', // le damos un tiempo de expiracion al token de 10minutos 
         }
     )
-    
+
+
     return {
         userId: user.id,
         email: user.email,
