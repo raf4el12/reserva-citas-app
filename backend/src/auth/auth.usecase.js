@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 // guardarmos la clave secrete tipo variable de entorno
 
-const SECRET_KEY = process.env.SECRET
+const SECRET_KEY = process.env.JWT_SECRET || 'some_secret_key';
 
 const login = async (email, password) => {
     const user = await prisma.users.findFirst({
@@ -13,6 +13,8 @@ const login = async (email, password) => {
         }
     })
 
+    
+
     const messageError = 'Credenciales no validas'
     if (!user)
         throw new Error(messageError);
@@ -20,7 +22,8 @@ const login = async (email, password) => {
     const valid = await bcrypt.compare(password, user.password)
     if (!valid)
         throw new Error(messageError);
-        
+     
+    
     // crear token
 
     const token = jwt.sign(
@@ -35,7 +38,7 @@ const login = async (email, password) => {
         }
     )
 
-
+    
     return {
         userId: user.id,
         email: user.email,

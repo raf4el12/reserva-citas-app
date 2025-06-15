@@ -1,4 +1,6 @@
 export function authBearer(req, res, next) {
+  const token1 = req.cookies.token;
+  console.log(token1);
   // 1. Validar que se envia el token
   const authHeader = req.headers['authorization'];
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
