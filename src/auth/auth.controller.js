@@ -4,14 +4,17 @@ import * as authUserCase from './auth.usecase.js'
 const login = async (req, res) => {
   try {
     const { email, password } = req.body
-    const users = await authUserCase.login(email, password)
-    res.cookie('token', users.token, {
+    const user = await authUserCase.login(email, password)
+  
+    res.cookie('accessToken', user.accessToken, {
       httpOnly: true,
       secure: false,
-      sameSite: 'strict',
+      sameSite: 'lax',
       maxAge: ACCESS_TOKEN_MINUTE_SIGN_NOMINAL,
     })
-    const { token, ...userData } = users
+
+    const { accessToken, ...userData } = user
+    
     res.json(userData)
   } catch (error) {
     res.status(500).json({ message: error.message })

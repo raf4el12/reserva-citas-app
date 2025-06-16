@@ -5,7 +5,9 @@ import {
   ACCESS_TOKEN_SECRET,
 } from '../shared/shared.constants.js'
 
-const getAccessToken = () => {
+const getAccessToken = (user) => {
+  if (!user) throw new Error("usuario requerido");
+  
   const accessToken = jwt.sign(
     {
       userId: user.id,
@@ -21,4 +23,17 @@ const getAccessToken = () => {
   return accessToken
 }
 
-export { getAccessToken }
+const validAccessToken = (accessToken) => {
+  try {
+    const decoded = jwt.verify(accessToken, ACCESS_TOKEN_SECRET)
+    
+    return decoded
+  } catch {
+    return null
+  }
+}
+
+export { 
+  getAccessToken,
+  validAccessToken
+}

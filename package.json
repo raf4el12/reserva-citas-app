@@ -4,15 +4,15 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node ./backend/src/index.js",
-    "dev": "nodemon ./backend/src/index.js",
-    "prisma": "prisma --schema=backend/prisma/schema.prisma",
-    "migrate": "prisma migrate dev --name init --schema=backend/prisma/schema.prisma",
-    "generate": "prisma generate --schema=backend/prisma/schema.prisma",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "prisma": "prisma --schema=prisma/schema.prisma",
+    "migrate": "prisma migrate dev --name init --schema=prisma/schema.prisma",
+    "generate": "prisma generate --schema=prisma/schema.prisma",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pull": "prisma db pull --schema=backend/prisma/schema.prisma",
-    "format": "biome format --write backend/src",
-    "lint": "biome check --write backend/src"
+    "pull": "prisma db pull --schema=prisma/schema.prisma",
+    "format": "biome format --write src",
+    "lint": "biome check --write src"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
     "mssql": "^11.0.1"
   },
   "devDependencies": {

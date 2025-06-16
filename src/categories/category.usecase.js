@@ -6,6 +6,7 @@ const getCategories = async () => {
       deleted: false,
     },
   })
+
   return categories
 }
 

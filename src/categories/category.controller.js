@@ -3,6 +3,7 @@ import * as categoryUsecase from './category.usecase.js'
 const getCategories = async (req, res) => {
   try {
     const categories = await categoryUsecase.getCategories()
+
     res.status(200).json(categories)
   } catch (error) {
     res.status(500).json({ message: error.message })

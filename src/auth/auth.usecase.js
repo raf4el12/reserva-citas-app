@@ -19,7 +19,7 @@ const login = async (email, password) => {
   return {
     userId: user.id,
     email: user.email,
-    token: getAccessToken(),
+    accessToken: getAccessToken(user),
   }
 }
 
