@@ -12,9 +12,7 @@ const login = async (email, password) => {
             email
         }
     })
-
     
-
     const messageError = 'Credenciales no validas'
     if (!user)
         throw new Error(messageError);
@@ -37,7 +35,6 @@ const login = async (email, password) => {
             expiresIn: '10m', // le damos un tiempo de expiracion al token de 10minutos 
         }
     )
-
     
     return {
         userId: user.id,
