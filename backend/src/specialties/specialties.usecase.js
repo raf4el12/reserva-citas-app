@@ -48,24 +48,20 @@ const updateSpecialtyById = async (id, data) => {
 }
 
 const createdSpecialty = async (data) => {
-  try {
-    const { name, categoryId } = data
+  const { name, categoryId } = data
 
-    const specialty = await prisma.specialties.create({
-      data: {
-        name,
-        category: {
-          connect: {
-            id: categoryId,
-          },
+  const specialty = await prisma.specialties.create({
+    data: {
+      name,
+      category: {
+        connect: {
+          id: categoryId,
         },
       },
-    })
+    },
+  })
 
-    return getSpecialtyById(specialty.id)
-  } catch (error) {
-    throw new Error('Error creating specialty: ' + error.message)
-  }
+  return getSpecialtyById(specialty.id)
 }
 
 const deleteSpecialtyById = async (id) => {
