@@ -1,13 +1,28 @@
-import express from 'express';
+import express from 'express'
 
-import * as clinicalNotesController from './clinicalnotes.controller.js';
+import * as clinicalNotesController from './clinicalnotes.controller.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/', clinicalNotesController.getClinicalNotes.bind(clinicalNotesController));
-router.get('/:id', clinicalNotesController.getClinicalNoteById.bind(clinicalNotesController));
-router.post('/', clinicalNotesController.createClinicalNote.bind(clinicalNotesController));
-router.put('/:id', clinicalNotesController.updateClinicalNoteById.bind(clinicalNotesController));
-router.delete('/:id', clinicalNotesController.deleteClinicalNoteById.bind(clinicalNotesController));
+router.get(
+  '/',
+  clinicalNotesController.getClinicalNotes.bind(clinicalNotesController)
+)
+router.get(
+  '/:id',
+  clinicalNotesController.getClinicalNoteById.bind(clinicalNotesController)
+)
+router.post(
+  '/',
+  clinicalNotesController.createClinicalNote.bind(clinicalNotesController)
+)
+router.put(
+  '/:id',
+  clinicalNotesController.updateClinicalNoteById.bind(clinicalNotesController)
+)
+router.delete(
+  '/:id',
+  clinicalNotesController.deleteClinicalNoteById.bind(clinicalNotesController)
+)
 
-export default router;
+export default router

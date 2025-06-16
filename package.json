@@ -10,7 +10,9 @@
     "migrate": "prisma migrate dev --name init --schema=backend/prisma/schema.prisma",
     "generate": "prisma generate --schema=backend/prisma/schema.prisma",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pull": "prisma db pull --schema=backend/prisma/schema.prisma"
+    "pull": "prisma db pull --schema=backend/prisma/schema.prisma",
+    "format": "biome format --write backend/src",
+    "lint": "biome check --write backend/src"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "mssql": "^11.0.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "nodemon": "^3.1.10",
     "prisma": "^6.7.0"
   }

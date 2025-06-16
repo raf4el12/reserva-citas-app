@@ -1,18 +1,17 @@
-import prisma from "../../prisma/context.js";
-
+import prisma from '../../prisma/context.js'
 
 // filtrar cat con delet true, solo las categorias que han sido eliminadas (ejem)
 const getCategories = async () => {
   try {
-    
-    const categories = await prisma.categories.findMany({ // findMany es para obtener varios registros ejem: usuario, categorias, etc
-        where: {
-            deleted: false, // traer categorias que no esten eliminadas
-        }
-    });
-    return categories;
+    const categories = await prisma.categories.findMany({
+      // findMany es para obtener varios registros ejem: usuario, categorias, etc
+      where: {
+        deleted: false, // traer categorias que no esten eliminadas
+      },
+    })
+    return categories
   } catch (error) {
-    throw new Error("Error fetching categories: " + error.message);
+    throw new Error('Error fetching categories: ' + error.message)
   }
 }
 
@@ -29,12 +28,12 @@ const getCategoryById = async (id) => {
       //   }
       // },
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
-    });
-    return category;
+    })
+    return category
   } catch (error) {
-    throw new Error("Error fetching category: " + error.message);
+    throw new Error('Error fetching category: ' + error.message)
   }
 }
 
@@ -43,25 +42,24 @@ const updateCategoryById = async (id, data) => {
   try {
     const category = await prisma.categories.update({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       data: data,
-    });
-    return category;
+    })
+    return category
   } catch (error) {
-    throw new Error("Error updating category: " + error.message);
+    throw new Error('Error updating category: ' + error.message)
   }
 }
 
 const createdCategory = async (data) => {
   try {
-    
     const category = await prisma.categories.create({
       data: data,
-    });
-    return category;
+    })
+    return category
   } catch (error) {
-    throw new Error("Error creating category: " + error.message);
+    throw new Error('Error creating category: ' + error.message)
   }
 }
 
@@ -70,15 +68,15 @@ const deleteCategoryById = async (id) => {
   try {
     const category = await prisma.categories.update({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       data: {
         deleted: true,
       },
-    });
-    return category;
+    })
+    return category
   } catch (error) {
-    throw new Error("Error deleting category: " + error.message);
+    throw new Error('Error deleting category: ' + error.message)
   }
 }
 
@@ -88,5 +86,4 @@ export {
   updateCategoryById,
   createdCategory,
   deleteCategoryById,
-};   
-
+}

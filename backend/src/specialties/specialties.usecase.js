@@ -1,4 +1,4 @@
-import prisma from "../../prisma/context.js";
+import prisma from '../../prisma/context.js'
 
 const getSpecialties = async () => {
   try {
@@ -14,10 +14,10 @@ const getSpecialties = async () => {
           },
         },
       },
-    });
-    return specialties;
+    })
+    return specialties
   } catch (error) {
-    throw new Error("Error fetching specialties: " + error.message);
+    throw new Error('Error fetching specialties: ' + error.message)
   }
 }
 
@@ -25,7 +25,7 @@ const getSpecialtyById = async (id) => {
   try {
     const specialty = await prisma.specialties.findUnique({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       include: {
         category: {
@@ -35,10 +35,10 @@ const getSpecialtyById = async (id) => {
           },
         },
       },
-    });
-    return specialty;
+    })
+    return specialty
   } catch (error) {
-    throw new Error("Error fetching specialty: " + error.message);
+    throw new Error('Error fetching specialty: ' + error.message)
   }
 }
 
@@ -46,35 +46,34 @@ const updateSpecialtyById = async (id, data) => {
   try {
     const specialty = await prisma.specialties.update({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       data: data,
-    });
-    return specialty;
+    })
+    return specialty
   } catch (error) {
-    throw new Error("Error updating specialty: " + error.message);
+    throw new Error('Error updating specialty: ' + error.message)
   }
 }
 
 const createdSpecialty = async (data) => {
   try {
-    const { name, categoryId } = data;
+    const { name, categoryId } = data
 
     const specialty = await prisma.specialties.create({
-      data : {
+      data: {
         name,
         category: {
           connect: {
-            id: categoryId
-          }
-        }
-      }
+            id: categoryId,
+          },
+        },
+      },
     })
 
     return getSpecialtyById(specialty.id)
-   
   } catch (error) {
-    throw new Error("Error creating specialty: " + error.message);
+    throw new Error('Error creating specialty: ' + error.message)
   }
 }
 
@@ -82,15 +81,15 @@ const deleteSpecialtyById = async (id) => {
   try {
     const specialty = await prisma.specialties.update({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       data: {
         deleted: true,
       },
-    });
-    return specialty;
+    })
+    return specialty
   } catch (error) {
-    throw new Error("Error deleting specialty: " + error.message);
+    throw new Error('Error deleting specialty: ' + error.message)
   }
 }
 
@@ -105,16 +104,16 @@ const getSpecialtiesByCateogryId = async (categoryId) => {
       },
     },
     where: {
-      categoryId: parseInt(categoryId)
-    }
+      categoryId: Number.parseInt(categoryId),
+    },
   })
 }
 
 export {
-    getSpecialties,
-    getSpecialtyById,
-    updateSpecialtyById,
-    createdSpecialty,
-    deleteSpecialtyById,
-    getSpecialtiesByCateogryId,
+  getSpecialties,
+  getSpecialtyById,
+  updateSpecialtyById,
+  createdSpecialty,
+  deleteSpecialtyById,
+  getSpecialtiesByCateogryId,
 }

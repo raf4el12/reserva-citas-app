@@ -1,4 +1,4 @@
-import prisma from "../../prisma/context.js";
+import prisma from '../../prisma/context.js'
 
 const getDoctors = async () => {
   try {
@@ -26,10 +26,10 @@ const getDoctors = async () => {
           },
         },
       },
-    });
-    return doctors;
+    })
+    return doctors
   } catch (error) {
-    throw new Error("Error fetching doctors: " + error.message);
+    throw new Error('Error fetching doctors: ' + error.message)
   }
 }
 
@@ -37,7 +37,7 @@ const getDoctorById = async (id) => {
   try {
     const doctor = await prisma.doctors.findUnique({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       include: {
         profile: {
@@ -59,10 +59,10 @@ const getDoctorById = async (id) => {
           },
         },
       },
-    });
-    return doctor;
+    })
+    return doctor
   } catch (error) {
-    throw new Error("Error fetching doctor: " + error.message);
+    throw new Error('Error fetching doctor: ' + error.message)
   }
 }
 
@@ -70,19 +70,19 @@ const updateDoctorById = async (id, data) => {
   try {
     const doctor = await prisma.doctors.update({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       data: data,
-    });
-    return doctor;
+    })
+    return doctor
   } catch (error) {
-    throw new Error("Error updating doctor: " + error.message);
+    throw new Error('Error updating doctor: ' + error.message)
   }
 }
 
 const createdDoctor = async (data) => {
   try {
-    const { profileId, licenseNumber, resume } = data;
+    const { profileId, licenseNumber, resume } = data
 
     const doctor = await prisma.doctors.create({
       data: {
@@ -90,10 +90,10 @@ const createdDoctor = async (data) => {
         licenseNumber,
         resume,
       },
-    });
-    return doctor;
+    })
+    return doctor
   } catch (error) {
-    throw new Error("Error creating doctor: " + error.message);
+    throw new Error('Error creating doctor: ' + error.message)
   }
 }
 
@@ -101,22 +101,22 @@ const deleteDoctorById = async (id) => {
   try {
     const doctor = await prisma.doctors.update({
       where: {
-        id: parseInt(id), // convertir el id a entero
+        id: Number.parseInt(id), // convertir el id a entero
       },
       data: {
         deleted: true,
       },
-    });
-    return doctor;
+    })
+    return doctor
   } catch (error) {
-    throw new Error("Error deleting doctor: " + error.message);
+    throw new Error('Error deleting doctor: ' + error.message)
   }
 }
 
 export {
-    getDoctors,
-    getDoctorById,
-    updateDoctorById,
-    createdDoctor,
-    deleteDoctorById,
+  getDoctors,
+  getDoctorById,
+  updateDoctorById,
+  createdDoctor,
+  deleteDoctorById,
 }

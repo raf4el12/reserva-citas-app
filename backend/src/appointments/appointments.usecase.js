@@ -1,4 +1,4 @@
-import prisma from '../../prisma/context.js';
+import prisma from '../../prisma/context.js'
 
 // Obtener todas las citas activas
 const getAppointments = async () => {
@@ -8,29 +8,29 @@ const getAppointments = async () => {
       include: {
         patient: true,
         schedule: true,
-      }
-    });
-    return appointments;
+      },
+    })
+    return appointments
   } catch (error) {
-    throw new Error('Error fetching appointments: ' + error.message);
+    throw new Error('Error fetching appointments: ' + error.message)
   }
-};
+}
 
 // Obtener cita por ID
 const getAppointmentById = async (id) => {
   try {
     const appointment = await prisma.appointments.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: Number.parseInt(id) },
       include: {
         patient: true,
         schedule: true,
-      }
-    });
-    return appointment;
+      },
+    })
+    return appointment
   } catch (error) {
-    throw new Error('Error fetching appointment: ' + error.message);
+    throw new Error('Error fetching appointment: ' + error.message)
   }
-};
+}
 
 // Crear nueva cita
 const createAppointment = async (data) => {
@@ -43,39 +43,39 @@ const createAppointment = async (data) => {
         status: data.status,
         paymentStatus: data.paymentStatus,
         deleted: false,
-      }
-    });
-    return appointment;
+      },
+    })
+    return appointment
   } catch (error) {
-    throw new Error('Error creating appointment: ' + error.message);
+    throw new Error('Error creating appointment: ' + error.message)
   }
-};
+}
 
 // Actualizar cita
 const updateAppointmentById = async (id, data) => {
   try {
     const appointment = await prisma.appointments.update({
-      where: { id: parseInt(id) },
+      where: { id: Number.parseInt(id) },
       data,
-    });
-    return appointment;
+    })
+    return appointment
   } catch (error) {
-    throw new Error('Error updating appointment: ' + error.message);
+    throw new Error('Error updating appointment: ' + error.message)
   }
-};
+}
 
 // Eliminar (soft delete) cita
 const deleteAppointmentById = async (id) => {
   try {
     const appointment = await prisma.appointments.update({
-      where: { id: parseInt(id) },
+      where: { id: Number.parseInt(id) },
       data: { deleted: true },
-    });
-    return appointment;
+    })
+    return appointment
   } catch (error) {
-    throw new Error('Error deleting appointment: ' + error.message);
+    throw new Error('Error deleting appointment: ' + error.message)
   }
-};
+}
 
 export {
   getAppointments,
@@ -83,4 +83,4 @@ export {
   createAppointment,
   updateAppointmentById,
   deleteAppointmentById,
-};
+}

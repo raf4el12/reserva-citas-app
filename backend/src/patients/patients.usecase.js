@@ -1,5 +1,4 @@
-import prisma from "../../prisma/context.js";
-
+import prisma from '../../prisma/context.js'
 
 const getPatients = async () => {
   try {
@@ -10,49 +9,55 @@ const getPatients = async () => {
       include: {
         profile: true, // Incluye la relación con el perfil
       },
-    });
-    return patients;
+    })
+    return patients
   } catch (error) {
-    throw new Error("Error fetching patients: " + error.message);
+    throw new Error('Error fetching patients: ' + error.message)
   }
-};
+}
 
 const getPatientById = async (id) => {
   try {
     const patient = await prisma.patients.findUnique({
       where: {
-        id: parseInt(id), // Convertir el id a entero
+        id: Number.parseInt(id), // Convertir el id a entero
       },
       include: {
         profile: true, // Incluye la relación con el perfil
       },
-    });
-    return patient;
+    })
+    return patient
   } catch (error) {
-    throw new Error("Error fetching patient: " + error.message);
+    throw new Error('Error fetching patient: ' + error.message)
   }
-};
+}
 
 const updatePatientById = async (id, data) => {
   try {
     const patient = await prisma.patients.update({
       where: {
-        id: parseInt(id), // Convertir el id a entero
+        id: Number.parseInt(id), // Convertir el id a entero
       },
       data: data,
       include: {
         profile: true, // Incluye la relación con el perfil
       },
-    });
-    return patient;
+    })
+    return patient
   } catch (error) {
-    throw new Error("Error updating patient: " + error.message);
+    throw new Error('Error updating patient: ' + error.message)
   }
 }
 
 const createPatient = async (data) => {
   try {
-    const { profileId, emergencyContact, bloodType, allergies, chronic_conditions } = data;
+    const {
+      profileId,
+      emergencyContact,
+      bloodType,
+      allergies,
+      chronic_conditions,
+    } = data
 
     const patient = await prisma.patients.create({
       data: {
@@ -65,18 +70,18 @@ const createPatient = async (data) => {
       include: {
         profile: true, // Incluye datos relacionados del perfil
       },
-    });
-    return patient;
+    })
+    return patient
   } catch (error) {
-    throw new Error("Error creating patient: " + error.message);
+    throw new Error('Error creating patient: ' + error.message)
   }
-};
+}
 
 const deletePatientById = async (id) => {
   try {
     const patient = await prisma.patients.update({
       where: {
-        id: parseInt(id), // Convertir el id a entero
+        id: Number.parseInt(id), // Convertir el id a entero
       },
       data: {
         deleted: true, // Marcar como eliminado
@@ -84,10 +89,10 @@ const deletePatientById = async (id) => {
       include: {
         profile: true, // Incluye la relación con el perfil
       },
-    });
-    return patient;
+    })
+    return patient
   } catch (error) {
-    throw new Error("Error deleting patient: " + error.message);
+    throw new Error('Error deleting patient: ' + error.message)
   }
 }
 
@@ -96,5 +101,5 @@ export {
   getPatientById,
   updatePatientById,
   createPatient,
-  deletePatientById
-};
+  deletePatientById,
+}
