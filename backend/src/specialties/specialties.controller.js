@@ -65,12 +65,12 @@ const deleteSpecialty = async (req, res) => {
   }
 }
 
-const getSpecialtiesByCateogryId = async (req, res) => {
+const getSpecialtiesByCategoryId = async (req, res) => {
   const { categoryId } = req.params
 
   try {
     const specialties =
-      await specialtiesUseCase.getSpecialtiesByCateogryId(categoryId)
+      await specialtiesUseCase.getSpecialtiesByCategoryId(categoryId)
 
     res.status(200).json(specialties)
   } catch (error) {
@@ -84,5 +84,5 @@ export {
   createdSpecialty,
   updateSpecialty,
   deleteSpecialty,
-  getSpecialtiesByCateogryId,
+  getSpecialtiesByCategoryId,
 }

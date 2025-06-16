@@ -1,59 +1,50 @@
 import prisma from '../../prisma/context.js'
 
 const getSpecialties = async () => {
-  try {
-    const specialties = await prisma.specialties.findMany({
-      where: {
-        deleted: false,
-      },
-      include: {
-        category: {
-          select: {
-            id: true,
-            name: true,
-          },
+  const specialties = await prisma.specialties.findMany({
+    where: {
+      deleted: false,
+    },
+    include: {
+      category: {
+        select: {
+          id: true,
+          name: true,
         },
       },
-    })
-    return specialties
-  } catch (error) {
-    throw new Error('Error fetching specialties: ' + error.message)
-  }
+    },
+  })
+
+  return specialties
 }
 
 const getSpecialtyById = async (id) => {
-  try {
-    const specialty = await prisma.specialties.findUnique({
-      where: {
-        id: Number.parseInt(id), // convertir el id a entero
-      },
-      include: {
-        category: {
-          select: {
-            id: true,
-            name: true,
-          },
+  const specialty = await prisma.specialties.findUnique({
+    where: {
+      id: Number.parseInt(id),
+    },
+    include: {
+      category: {
+        select: {
+          id: true,
+          name: true,
         },
       },
-    })
-    return specialty
-  } catch (error) {
-    throw new Error('Error fetching specialty: ' + error.message)
-  }
+    },
+  })
+
+  return specialty
 }
 
 const updateSpecialtyById = async (id, data) => {
-  try {
-    const specialty = await prisma.specialties.update({
-      where: {
-        id: Number.parseInt(id), // convertir el id a entero
-      },
-      data: data,
-    })
-    return specialty
-  } catch (error) {
-    throw new Error('Error updating specialty: ' + error.message)
-  }
+  const specialty = await prisma.specialties.update({
+    where: {
+      id: Number.parseInt(id),
+    },
+    data: data,
+  })
+
+  return specialty
 }
 
 const createdSpecialty = async (data) => {
@@ -78,22 +69,19 @@ const createdSpecialty = async (data) => {
 }
 
 const deleteSpecialtyById = async (id) => {
-  try {
-    const specialty = await prisma.specialties.update({
-      where: {
-        id: Number.parseInt(id), // convertir el id a entero
-      },
-      data: {
-        deleted: true,
-      },
-    })
-    return specialty
-  } catch (error) {
-    throw new Error('Error deleting specialty: ' + error.message)
-  }
+  const specialty = await prisma.specialties.update({
+    where: {
+      id: Number.parseInt(id),
+    },
+    data: {
+      deleted: true,
+    },
+  })
+
+  return specialty
 }
 
-const getSpecialtiesByCateogryId = async (categoryId) => {
+const getSpecialtiesByCategoryId = async (categoryId) => {
   return prisma.specialties.findMany({
     include: {
       category: {
@@ -115,5 +103,5 @@ export {
   updateSpecialtyById,
   createdSpecialty,
   deleteSpecialtyById,
-  getSpecialtiesByCateogryId,
+  getSpecialtiesByCategoryId,
 }

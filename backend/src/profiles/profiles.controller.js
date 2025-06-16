@@ -95,7 +95,7 @@ const getProfilesByUserId = async (req, res) => {
   const { userId } = req.params
 
   try {
-    const profiles = await specialtiesUseCase.getSpecialtiesByCateogryId(userId)
+    const profiles = await specialtiesUseCase.getSpecialtiesByCategoryId(userId)
 
     res.status(200).json(profiles)
   } catch (error) {

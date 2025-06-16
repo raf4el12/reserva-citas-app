@@ -20,7 +20,7 @@ router.delete(
 )
 router.get(
   '/category/:categoryId',
-  specialtyController.getSpecialtiesByCateogryId.bind(specialtyController)
+  specialtyController.getSpecialtiesByCategoryId.bind(specialtyController)
 )
 
 export default router

@@ -1,59 +1,50 @@
 import prisma from '../../prisma/context.js'
 
 const getProfiles = async () => {
-  try {
-    const profiles = await prisma.profiles.findMany({
-      where: {
-        deleted: false,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-          },
+  const profiles = await prisma.profiles.findMany({
+    where: {
+      deleted: false,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
         },
       },
-    })
-    return profiles
-  } catch (error) {
-    throw new Error('Error fetching profiles: ' + error.message)
-  }
+    },
+  })
+
+  return profiles
 }
 
 const getProfilesById = async (id) => {
-  try {
-    const profiles = await prisma.profiles.findUnique({
-      where: {
-        id: Number.parseInt(id), // convertir el id a entero
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-          },
+  const profiles = await prisma.profiles.findUnique({
+    where: {
+      id: Number.parseInt(id),
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
         },
       },
-    })
-    return profiles
-  } catch (error) {
-    throw new Error('Error fetching profiles: ' + error.message)
-  }
+    },
+  })
+
+  return profiles
 }
 
 const updateProfilesById = async (id, data) => {
-  try {
-    const profiles = await prisma.profiles.update({
-      where: {
-        id: Number.parseInt(id), // convertir el id a entero
-      },
-      data: data,
-    })
-    return profiles
-  } catch (error) {
-    throw new Error('Error updating profiles: ' + error.message)
-  }
+  const profiles = await prisma.profiles.update({
+    where: {
+      id: Number.parseInt(id),
+    },
+    data: data,
+  })
+
+  return profiles
 }
 
 const createdProfiles = async ({
@@ -71,7 +62,6 @@ const createdProfiles = async ({
   numberDocument,
   userId,
 }) => {
-  // Validar que el usuario exista
   const user = await prisma.users.findUnique({
     where: { id: userId },
   })
@@ -80,7 +70,6 @@ const createdProfiles = async ({
     throw new Error('User not found')
   }
 
-  // Verificar si ya tiene un perfil
   const existingProfile = await prisma.profiles.findUnique({
     where: { userId },
   })
@@ -89,7 +78,6 @@ const createdProfiles = async ({
     throw new Error('Profile already exists for this user')
   }
 
-  // Crear perfil
   const profile = await prisma.profiles.create({
     data: {
       name,
@@ -112,19 +100,16 @@ const createdProfiles = async ({
 }
 
 const deleteProfilesById = async (id) => {
-  try {
-    const profiles = await prisma.profiles.update({
-      where: {
-        id: Number.parseInt(id), // convertir el id a entero
-      },
-      data: {
-        deleted: true,
-      },
-    })
-    return profiles
-  } catch (error) {
-    throw new Error('Error deleting profiles: ' + error.message)
-  }
+  const profiles = await prisma.profiles.update({
+    where: {
+      id: Number.parseInt(id),
+    },
+    data: {
+      deleted: true,
+    },
+  })
+
+  return profiles
 }
 
 const getProfilesByUserId = async (userId) => {
@@ -143,6 +128,7 @@ const getProfilesByUserId = async (userId) => {
     },
   })
 }
+
 export {
   getProfiles,
   getProfilesById,
