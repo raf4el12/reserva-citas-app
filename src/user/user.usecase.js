@@ -1,7 +1,10 @@
 import bcrypt from 'bcrypt'
+import { omit } from 'es-toolkit'
+
 import prisma from '../../prisma/context.js'
 
 const saltRounds = 10
+const omitFields = ['password', 'validateEmail']
 
 const getUser = async () => {
   const users = await prisma.users.findMany({
@@ -10,7 +13,9 @@ const getUser = async () => {
     },
   })
 
-  return users
+  const newUsers = users.map((user) => omit(user, omitFields))
+
+  return newUsers
 }
 
 const getUserById = async (id) => {
@@ -20,7 +25,7 @@ const getUserById = async (id) => {
     },
   })
 
-  return user
+  return omit(user, omitFields)
 }
 
 const updateUserById = async (id, data) => {
@@ -31,7 +36,7 @@ const updateUserById = async (id, data) => {
     data: data,
   })
 
-  return user
+  return omit(user, omitFields)
 }
 
 const createdUser = async (data) => {
@@ -48,7 +53,7 @@ const createdUser = async (data) => {
     },
   })
 
-  return user
+  return omit(user, omitFields)
 }
 
 const deleteUserById = async (id) => {
@@ -61,7 +66,7 @@ const deleteUserById = async (id) => {
     },
   })
 
-  return user
+  return omit(user, omitFields)
 }
 
 export { getUser, getUserById, updateUserById, createdUser, deleteUserById }

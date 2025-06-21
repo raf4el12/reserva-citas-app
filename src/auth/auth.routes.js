@@ -3,5 +3,7 @@ import * as authController from './auth.controller.js'
 
 const router = express.Router()
 router.post('/login', authController.login.bind(authController))
+router.post('/refresh', authController.refresh.bind(authController))
+router.post('/logout', authController.logout.bind(authController))
 
 export default router
