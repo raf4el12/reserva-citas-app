@@ -16,7 +16,7 @@ export function authBearer(req, res, next) {
   }
 
   const user = validAccessToken(accessToken)
-  console.log('user', user)
+
   if (!user) {
     return res.status(401).json({ message: messageError })
   }
