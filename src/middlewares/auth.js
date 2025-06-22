@@ -1,6 +1,6 @@
 import { validAccessToken } from '../auth/auth.credential.js'
 
-const EXEMPT_ENDPOINTS = ['/api/auth/login', '/api/auth/refresh']
+const EXEMPT_ENDPOINTS = ['/api/auth/login', '/api/auth/refresh', '/api/auth/signup']
 
 export function authBearer(req, res, next) {
   if (EXEMPT_ENDPOINTS.includes(req.path)) {

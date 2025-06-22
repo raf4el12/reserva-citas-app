@@ -56,4 +56,11 @@ const logout = (req, res) => {
   res.json({ message: 'ok' })
 }
 
-export { login, refresh, logout }
+const signup = async (req, res) => {
+  await authUserCase.signup(req.body)
+
+  res.json({ message: 'ok' })
+}
+
+
+export { login, refresh, logout, signup }

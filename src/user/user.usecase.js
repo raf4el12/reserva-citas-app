@@ -5,6 +5,11 @@ import prisma from '../../prisma/context.js'
 
 const saltRounds = 10
 const omitFields = ['password', 'validateEmail']
+const ROLE = {
+  ADMIN: 'ADMIN',
+  DOCTOR: 'DOCTOR',
+  USER: 'USER',
+}
 
 const getUser = async () => {
   const users = await prisma.users.findMany({
@@ -41,6 +46,8 @@ const updateUserById = async (id, data) => {
 
 const createdUser = async (data) => {
   const { name, email, password, role } = data
+
+  if (!Object.values(ROLE).includes(role)) throw new Error('Role not found')
 
   const passwordHash = await bcrypt.hash(password, saltRounds)
 

@@ -7,6 +7,7 @@ import {
   getRefreshToken,
   validRefreshToken,
 } from './auth.credential.js'
+import { createdUser } from '../user/user.usecase.js'
 
 const messageError = 'Credenciales no validas'
 
@@ -41,4 +42,8 @@ const refreshToken = async (refreshToken) => {
   }
 }
 
-export { login, refreshToken }
+const signup = async (data) => {
+  await createdUser(data)
+}
+
+export { login, refreshToken, signup }
