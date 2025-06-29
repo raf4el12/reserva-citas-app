@@ -62,28 +62,23 @@ const createdProfiles = async ({
   numberDocument,
   userId,
 }) => {
-  const user = await prisma.users.findUnique({
-    where: { id: userId },
-  })
+  if(userId) {
+    const existingProfile = await prisma.profiles.findFirst({
+      where: { userId },
+    })
 
-  if (!user) {
-    throw new Error('User not found')
+    if (existingProfile) {
+      throw new Error('Profile already exists for this user')
+    }
   }
 
-  const existingProfile = await prisma.profiles.findUnique({
-    where: { userId },
-  })
-
-  if (existingProfile) {
-    throw new Error('Profile already exists for this user')
-  }
 
   const profile = await prisma.profiles.create({
     data: {
       name,
       lastName,
       email,
-      birthday,
+      birthday: birthday ? new Date(birthday) : null,
       gender,
       national,
       photo,
