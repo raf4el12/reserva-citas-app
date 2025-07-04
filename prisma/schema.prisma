@@ -19,14 +19,15 @@ model Users {
   deleted       Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime?
-  profile       Profiles?
+
+  profiles      Profiles[]
 }
 
 model Profiles {
   id             Int       @id @default(autoincrement())
   name           String
   lastName       String
-  email          String
+  email          String    @unique
   birthday       DateTime?
   gender         String?
   national       String?
@@ -36,11 +37,11 @@ model Profiles {
   typeProfileId  Int?
   typeDocument   String?
   numberDocument String?
-  userId         Int       @unique
+  userId         Int?
   deleted        Boolean   @default(false)
   createdAt      DateTime  @default(now())
   updatedAt      DateTime?
-  user           Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           Users?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   patient        Patients?
   doctor         Doctors?
 }

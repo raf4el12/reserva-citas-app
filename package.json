@@ -9,6 +9,7 @@
     "prisma": "prisma --schema=prisma/schema.prisma",
     "migrate": "prisma migrate dev --name init --schema=prisma/schema.prisma",
     "generate": "prisma generate --schema=prisma/schema.prisma",
+    "reset": "prisma migrate reset --schema=prisma/schema.prisma",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pull": "prisma db pull --schema=prisma/schema.prisma",
     "format": "biome format --write src",
