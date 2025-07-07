@@ -74,7 +74,7 @@ const deleteSpecialtyById = async (id) => {
     },
   })
 
-  return specialty
+  return specialty.id
 }
 
 const getSpecialtiesByCategoryId = async (categoryId) => {

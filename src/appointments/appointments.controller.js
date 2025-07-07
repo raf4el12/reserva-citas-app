@@ -27,8 +27,11 @@ const updateAppointmentById = async (req, res) => {
 
 const deleteAppointmentById = async (req, res) => {
   const { id } = req.params
-  const appointment = await appointmentsUseCase.deleteAppointmentById(id)
-  res.status(200).json(appointment)
+  const appointmentId = await appointmentsUseCase.deleteAppointmentById(id)
+  if (!appointmentId) {
+    return res.status(404).json({ message: 'Appointment not found' })
+  }
+  res.status(200).json(appointmentId)
 }
 
 export {

@@ -20,7 +20,7 @@ model Users {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime?
 
-  profiles      Profiles[]
+  profiles Profiles[]
 }
 
 model Profiles {

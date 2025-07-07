@@ -32,11 +32,11 @@ const createPatient = async (req, res) => {
 
 const deletePatient = async (req, res) => {
   const { id } = req.params
-  const patient = await patientsUseCase.deletePatientById(id)
-  if (!patient) {
+  const patientId = await patientsUseCase.deletePatientById(id)
+  if (!patientId) {
     return res.status(404).json({ message: 'Patient not found' })
   }
-  res.status(200).json({ message: 'Patient deleted successfully' })
+  res.status(200).json(patientId)
 }
 
 export {

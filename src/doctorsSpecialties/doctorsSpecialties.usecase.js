@@ -63,7 +63,7 @@ const deleteCategoryById = async (id) => {
     where: { id },
   })
 
-  return doctorsSpecialty
+  return doctorsSpecialty.id
 }
 
 export {

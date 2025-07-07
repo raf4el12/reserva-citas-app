@@ -95,7 +95,7 @@ const deleteDoctorById = async (id) => {
     },
   })
 
-  return doctor
+  return doctor.id
 }
 
 export {

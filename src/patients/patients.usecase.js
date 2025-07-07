@@ -78,7 +78,7 @@ const deletePatientById = async (id) => {
     },
   })
 
-  return patient
+  return patient.id
 }
 
 export {

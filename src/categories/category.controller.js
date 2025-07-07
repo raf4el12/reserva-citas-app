@@ -39,11 +39,11 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   const { id } = req.params
-  const category = await categoryUsecase.deleteCategoryById(id)
-  if (!category) {
+  const categoryId = await categoryUsecase.deleteCategoryById(id)
+  if (!categoryId) {
     return res.status(404).json({ message: 'Category not found' })
   }
-  res.status(200).json({ message: 'Category deleted successfully' })
+  res.status(200).json(categoryId)
 }
 export {
   getCategories,

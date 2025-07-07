@@ -38,11 +38,11 @@ const updateSpecialty = async (req, res) => {
 
 const deleteSpecialty = async (req, res) => {
   const { id } = req.params
-  const specialty = await specialtiesUseCase.deleteSpecialtyById(id)
-  if (!specialty) {
+  const specialtyId = await specialtiesUseCase.deleteSpecialtyById(id)
+  if (!specialtyId) {
     return res.status(404).json({ message: 'Specialty not found' })
   }
-  res.status(200).json({ message: 'Specialty deleted successfully' })
+  res.status(200).json(specialtyId)
 }
 
 const getSpecialtiesByCategoryId = async (req, res) => {

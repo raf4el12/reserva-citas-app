@@ -50,7 +50,7 @@ const deleteClinicalNoteById = async (id) => {
     data: { deleted: true },
   })
 
-  return note
+  return note.id
 }
 
 export {

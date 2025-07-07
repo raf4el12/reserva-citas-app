@@ -44,7 +44,7 @@ const updateProfilesById = async (id, data) => {
     data: data,
   })
 
-  return profiles
+  return profiles.id
 }
 
 const createdProfiles = async ({
@@ -62,7 +62,7 @@ const createdProfiles = async ({
   numberDocument,
   userId,
 }) => {
-  if(userId) {
+  if (userId) {
     const existingProfile = await prisma.profiles.findFirst({
       where: { userId },
     })
@@ -71,7 +71,6 @@ const createdProfiles = async ({
       throw new Error('Profile already exists for this user')
     }
   }
-
 
   const profile = await prisma.profiles.create({
     data: {

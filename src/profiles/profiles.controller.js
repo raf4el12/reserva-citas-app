@@ -73,8 +73,11 @@ const deleteProfiles = async (req, res) => {
 
 const getProfilesByUserId = async (req, res) => {
   const { userId } = req.params
-  const profiles = await specialtiesUseCase.getSpecialtiesByCategoryId(userId)
-  res.status(200).json(profiles)
+  const profileId = await specialtiesUseCase.getSpecialtiesByCategoryId(userId)
+  if (!profileId) {
+    return res.status(404).json({ message: 'Profile not found' })
+  }
+  res.status(200).json(profileId)
 }
 
 export {

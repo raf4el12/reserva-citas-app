@@ -54,7 +54,7 @@ const deleteAppointmentById = async (id) => {
     data: { deleted: true },
   })
 
-  return appointment
+  return appointment.id
 }
 
 export {
