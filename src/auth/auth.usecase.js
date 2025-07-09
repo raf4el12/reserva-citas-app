@@ -2,12 +2,12 @@ import bcrypt from 'bcrypt'
 
 import prisma from '../../prisma/context.js'
 import { UnauthorizedError } from '../shared/shared.http.error.js'
+import { createdUser } from '../user/user.usecase.js'
 import {
   getAccessToken,
   getRefreshToken,
   validRefreshToken,
 } from './auth.credential.js'
-import { createdUser } from '../user/user.usecase.js'
 
 const messageError = 'Credenciales no validas'
 

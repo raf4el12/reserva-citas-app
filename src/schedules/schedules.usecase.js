@@ -53,14 +53,7 @@ const updateScheduleById = async (id, data) => {
 }
 
 const createdSchedule = async (data) => {
- 
-  const {
-    doctorId,
-    specialtyId,
-    scheduleDate, 
-    timeFrom,     
-    timeTo,      
-  } = data
+  const { doctorId, specialtyId, scheduleDate, timeFrom, timeTo } = data
 
   const startDateTime = new Date(`${scheduleDate}T${timeFrom}`)
   const endDateTime = new Date(`${scheduleDate}T${timeTo}`)
@@ -69,19 +62,19 @@ const createdSchedule = async (data) => {
     data: {
       doctorId,
       specialtyId,
-      
-      scheduleDate: startDateTime, 
+
+      scheduleDate: startDateTime,
       timeFrom: startDateTime,
       timeTo: endDateTime,
     },
-    
+
     include: {
       doctor: true,
       specialty: true,
     },
   })
 
-  return schedule;
+  return schedule
 }
 
 const deleteSchedule = async (id) => {

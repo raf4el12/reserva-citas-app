@@ -23,8 +23,9 @@ const getAppointmentById = async (id) => {
       },
       schedule: {
         include: {
-          specialty: true,  // Incluye la especialidad
-          doctor: {         // Incluye el médico
+          specialty: true, // Incluye la especialidad
+          doctor: {
+            // Incluye el médico
             include: {
               profile: true, // Incluye el perfil del médico
             },
@@ -32,9 +33,9 @@ const getAppointmentById = async (id) => {
         },
       },
     },
-  });
+  })
 
-  return appointment;
+  return appointment
 }
 
 const createAppointment = async (data) => {
