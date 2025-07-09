@@ -14,14 +14,27 @@ const getAppointments = async () => {
 
 const getAppointmentById = async (id) => {
   const appointment = await prisma.appointments.findUnique({
-    where: { id: Number.parseInt(id) },
+    where: { id: Number(id) },
     include: {
-      patient: true,
-      schedule: true,
+      patient: {
+        include: {
+          profile: true, // Incluye el perfil completo del paciente
+        },
+      },
+      schedule: {
+        include: {
+          specialty: true,  // Incluye la especialidad
+          doctor: {         // Incluye el médico
+            include: {
+              profile: true, // Incluye el perfil del médico
+            },
+          },
+        },
+      },
     },
-  })
+  });
 
-  return appointment
+  return appointment;
 }
 
 const createAppointment = async (data) => {

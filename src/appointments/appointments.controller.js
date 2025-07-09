@@ -6,6 +6,7 @@ const getAppointments = async (req, res) => {
 }
 
 const getAppointmentById = async (req, res) => {
+  const { id } = req.params
   const appointment = await appointmentsUseCase.getAppointmentById(id)
   if (!appointment) {
     return res.status(404).json({ error: 'Appointment not found' })
@@ -14,6 +15,7 @@ const getAppointmentById = async (req, res) => {
 }
 
 const createAppointment = async (req, res) => {
+  const data = req.body
   const appointment = await appointmentsUseCase.createAppointment(data)
   res.status(201).json(appointment)
 }
