@@ -15,6 +15,7 @@ const login = async (email, password) => {
   const user = await prisma.users.findFirst({
     where: {
       email,
+      deleted: false,
     },
   })
 
@@ -26,19 +27,31 @@ const login = async (email, password) => {
   return {
     userId: user.id,
     email: user.email,
+    name: user.name,
+    role: user.role,
+    validateEmail: user.validateEmail,
     accessToken: getAccessToken(user),
     refreshToken: getRefreshToken(user),
   }
 }
 
 const refreshToken = async (refreshToken) => {
-  const user = validRefreshToken(refreshToken)
+  const payload = validRefreshToken(refreshToken)
+  if (!payload) throw new UnauthorizedError(messageError)
+
+  const user = await prisma.users.findFirst({
+    where: {
+      id: payload.userId,
+      deleted: false,
+    },
+  })
+
   if (!user) throw new UnauthorizedError(messageError)
 
   return {
     accessToken: getAccessToken(user),
     refreshToken: getRefreshToken(user),
-    userId: user.userId,
+    userId: user.id,
   }
 }
 
