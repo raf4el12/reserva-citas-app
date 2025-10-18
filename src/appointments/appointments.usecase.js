@@ -18,16 +18,15 @@ const getAppointmentById = async (id) => {
     include: {
       patient: {
         include: {
-          profile: true, // Incluye el perfil completo del paciente
+          profile: true,
         },
       },
       schedule: {
         include: {
-          specialty: true, // Incluye la especialidad
+          specialty: true,
           doctor: {
-            // Incluye el médico
             include: {
-              profile: true, // Incluye el perfil del médico
+              profile: true,
             },
           },
         },
