@@ -16,20 +16,22 @@ const getCategoryById = async (req, res) => {
 }
 
 const createdCategory = async (req, res) => {
-  const { name, description } = req.body
+  const { name, description, isActive } = req.body
   const category = await categoryUsecase.createdCategory({
     name,
     description,
+    isActive,
   })
   res.status(201).json(category)
 }
 
 const updateCategory = async (req, res) => {
   const { id } = req.params
-  const { name, description } = req.body
+  const { name, description, isActive } = req.body
   const category = await categoryUsecase.updateCategoryById(id, {
     name,
     description,
+    isActive,
   })
   if (!category) {
     return res.status(404).json({ message: 'Category not found' })
