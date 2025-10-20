@@ -84,7 +84,7 @@ const deleteSchedule = async (id) => {
     },
   })
 
-  return schedule
+  return schedule.id
 }
 
 export {

@@ -45,7 +45,7 @@ const deleteCategoryById = async (id) => {
       deleted: true,
     },
   })
-  return category
+  return category.id
 }
 
 export {

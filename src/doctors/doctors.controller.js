@@ -40,12 +40,12 @@ const updateDoctor = async (req, res) => {
 
 const deleteDoctor = async (req, res) => {
   const { id } = req.params
-  const doctor = await doctorsUseCase.deleteDoctorById(Number.parseInt(id))
-  if (!doctor) {
+  const doctorId = await doctorsUseCase.deleteDoctorById(Number.parseInt(id))
+  if (!doctorId) {
     return res.status(404).json({ message: 'Doctor not found' })
   }
 
-  res.status(200).json({ message: 'Doctor deleted successfully' })
+  res.status(200).json(doctorId)
 }
 
 export { getDoctors, getDoctorById, createdDoctor, updateDoctor, deleteDoctor }

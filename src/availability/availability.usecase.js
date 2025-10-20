@@ -83,7 +83,8 @@ const deleteAvailabilityById = async (id) => {
       isAvailable: false,
     },
   })
-  return availability
+
+  return availability.id
 }
 
 export {
