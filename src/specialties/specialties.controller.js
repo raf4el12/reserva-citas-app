@@ -15,9 +15,24 @@ const getSpecialtyById = async (req, res) => {
 }
 
 const createdSpecialty = async (req, res) => {
-  const { name, categoryId } = req.body
+  const {
+    name,
+    description,
+    duration,
+    price,
+    requirements,
+    icon,
+    isActive,
+    categoryId,
+  } = req.body
   const specialty = await specialtiesUseCase.createdSpecialty({
     name,
+    description,
+    duration,
+    price,
+    requirements,
+    icon,
+    isActive,
     categoryId,
   })
   res.status(201).json(specialty)

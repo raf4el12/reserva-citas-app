@@ -14,10 +14,23 @@ const getAppointments = async () => {
 
 const getAppointmentById = async (id) => {
   const appointment = await prisma.appointments.findUnique({
-    where: { id: Number.parseInt(id) },
+    where: { id: Number(id) },
     include: {
-      patient: true,
-      schedule: true,
+      patient: {
+        include: {
+          profile: true,
+        },
+      },
+      schedule: {
+        include: {
+          specialty: true,
+          doctor: {
+            include: {
+              profile: true,
+            },
+          },
+        },
+      },
     },
   })
 

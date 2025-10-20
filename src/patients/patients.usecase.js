@@ -58,7 +58,7 @@ const createPatient = async (data) => {
       chronic_conditions,
     },
     include: {
-      profile: true, // Incluye datos relacionados del perfil
+      profile: true,
     },
   })
 

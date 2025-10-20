@@ -48,11 +48,26 @@ const updateSpecialtyById = async (id, data) => {
 }
 
 const createdSpecialty = async (data) => {
-  const { name, categoryId } = data
+  const {
+    name,
+    description,
+    duration,
+    price,
+    requirements,
+    icon,
+    isActive,
+    categoryId,
+  } = data
 
   const specialty = await prisma.specialties.create({
     data: {
       name,
+      description,
+      duration,
+      price,
+      requirements,
+      icon,
+      isActive: Boolean(isActive),
       category: {
         connect: {
           id: categoryId,
