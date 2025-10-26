@@ -32,12 +32,11 @@ const createdAvailability = async (req, res) => {
 
 const deleteAvailability = async (req, res) => {
   const { id } = req.params
-  const deletedAvailability =
-    await availabilityUseCase.deleteAvailabilityById(id)
-  if (!deletedAvailability) {
+  const availabilityId = await availabilityUseCase.deleteAvailabilityById(id)
+  if (!availabilityId) {
     return res.status(404).json({ message: 'Availability not found' })
   }
-  res.status(200).json({ message: 'Availability deleted successfully' })
+  res.status(200).json(availabilityId)
 }
 
 export {

@@ -28,11 +28,11 @@ const createdSchedule = async (req, res) => {
 
 const deleteSchedule = async (req, res) => {
   const { id } = req.params
-  const deletedSchedule = await schedulesUseCase.deleteSchedule(id)
-  if (!deletedSchedule) {
+  const scheduleId = await schedulesUseCase.deleteSchedule(id)
+  if (!scheduleId) {
     return res.status(404).json({ message: 'Schedule not found' })
   }
-  res.status(200).json({ message: 'Schedule deleted successfully' })
+  res.status(200).json(scheduleId)
 }
 
 export {

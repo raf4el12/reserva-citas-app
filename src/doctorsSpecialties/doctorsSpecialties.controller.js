@@ -48,12 +48,12 @@ const updateDoctorsSpecialty = async (req, res) => {
 
 const deleteDoctorsSpecialty = async (req, res) => {
   const { id } = req.params
-  const doctorsSpecialty =
+  const doctorsSpecialtyId =
     await doctorsSpecialtiesUseCase.deleteDoctorsSpecialtyById(id)
-  if (!doctorsSpecialty) {
+  if (!doctorsSpecialtyId) {
     return res.status(404).json({ message: 'Doctors specialty not found' })
   }
-  res.status(200).json({ message: 'Doctors specialty deleted successfully' })
+  res.status(200).json(doctorsSpecialtyId)
 }
 
 export {

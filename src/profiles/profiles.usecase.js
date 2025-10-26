@@ -44,7 +44,7 @@ const updateProfilesById = async (id, data) => {
     data: data,
   })
 
-  return profiles
+  return profiles.id
 }
 
 const createdProfiles = async ({
