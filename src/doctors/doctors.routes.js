@@ -1,6 +1,6 @@
 import express from 'express'
-import * as doctorController from './doctors.controller.js'
 import { uploadSingle } from '../middlewares/upload.js'
+import * as doctorController from './doctors.controller.js'
 
 const router = express.Router()
 router.get('/', doctorController.getDoctors.bind(doctorController))
