@@ -1,42 +1,94 @@
 import * as patientsUseCase from './patients.usecase.js'
 
 const getPatients = async (req, res) => {
-  const patients = await patientsUseCase.getPatients()
-  res.status(200).json(patients)
+  try {
+    const patients = await patientsUseCase.getPatients()
+    res.status(200).json(patients)
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error interno del servidor', error: error.message })
+  }
 }
 
 const getPatientById = async (req, res) => {
-  const { id } = req.params
-  const patient = await patientsUseCase.getPatientById(id)
-  if (!patient) {
-    return res.status(404).json({ message: 'Patient not found' })
+  try {
+    const { id } = req.params
+    const patient = await patientsUseCase.getPatientById(id)
+    res.status(200).json(patient)
+  } catch (error) {
+    if (error.message === 'Paciente no encontrado') {
+      return res.status(404).json({ message: error.message })
+    }
+    res
+      .status(500)
+      .json({ message: 'Error interno del servidor', error: error.message })
   }
-  res.status(200).json(patient)
 }
 
 const updatePatient = async (req, res) => {
-  const { id } = req.params
-  const data = req.body
-  const patient = await patientsUseCase.updatePatientById(id, data)
-  if (!patient) {
-    return res.status(404).json({ message: 'Patient not found' })
+  try {
+    const { id } = req.params
+    const data = { ...req.body }
+
+    if (req.file) {
+      data.photo = `/uploads/${req.file.filename}`
+    }
+
+    const patient = await patientsUseCase.updatePatientById(id, data)
+
+    res.status(200).json({
+      message: 'Paciente actualizado exitosamente',
+      data: patient,
+    })
+  } catch (error) {
+    if (error.message === 'Paciente no encontrado') {
+      return res.status(404).json({ message: error.message })
+    }
+    res.status(500).json({
+      message: error.message || 'Error al actualizar paciente',
+      status: 500,
+    })
   }
-  res.status(200).json(patient)
 }
 
 const createPatient = async (req, res) => {
-  const data = req.body
-  const patient = await patientsUseCase.createPatient(data)
-  res.status(201).json(patient)
+  try {
+    const data = { ...req.body }
+
+    if (req.file) {
+      data.photo = `/uploads/${req.file.filename}`
+    }
+
+    const patient = await patientsUseCase.createPatient(data)
+
+    res.status(201).json({
+      message: 'Paciente creado exitosamente',
+      data: patient,
+    })
+  } catch (error) {
+    if (error.message === 'Usuario no encontrado') {
+      return res.status(404).json({ message: error.message })
+    }
+    res.status(500).json({
+      message: error.message || 'Error al crear paciente',
+      status: 500,
+    })
+  }
 }
 
 const deletePatient = async (req, res) => {
-  const { id } = req.params
-  const patientId = await patientsUseCase.deletePatientById(id)
-  if (!patientId) {
-    return res.status(404).json({ message: 'Patient not found' })
+  try {
+    const { id } = req.params
+    const patientId = await patientsUseCase.deletePatientById(id)
+    res
+      .status(200)
+      .json({ message: 'Paciente eliminado correctamente', id: patientId })
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error interno del servidor', error: error.message })
   }
-  res.status(200).json(patientId)
 }
 
 export {
